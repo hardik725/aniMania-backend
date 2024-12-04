@@ -1,5 +1,5 @@
 import express from "express";
-import dotenv from "dotenv";
+import "dotenv/config"
 import mongoose from "mongoose";
 import {UserDataRoutes , UserRouter} from "./Router/UserRouter.js";
 import cors from "cors";
@@ -10,7 +10,6 @@ import CharacRouter from "./Router/CharacRouter.js";
 import AnimeReviewRouter from "./Router/AnimeReviewRouter.js"; // Ensure correct import path
 import MangaReviewRouter from "./Router/MangaReviewRouter.js";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4001;
 const URI = process.env.MongoDBURI;
@@ -23,6 +22,10 @@ app.use(express.json());
 mongoose.connect(URI)
 .then(() => console.log("Connected to MongoDB"))
 .catch((error) => console.log("ERROR: ", error));
+
+app.get('/' , (req,res) => {
+    return res.json({msg:"Welcome"});
+})
 
 // Routes
 app.use("/user", UserRouter);
